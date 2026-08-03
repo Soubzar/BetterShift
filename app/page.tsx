@@ -378,16 +378,18 @@ function HomeContent() {
 
   const handleShiftSubmit = async (formData: ShiftFormData) => {
   if (editingShift) {
-    const rangeChanged = formData.startDay !== formData.endDay;
+    const start = formData.startDay ?? formData.date;
+    const end = formData.endDay ?? formData.date;
+    const rangeChanged = start !== end;
 
     if (rangeChanged) {
       // Delete old shift
       await deleteShiftHook(editingShift.id);
 
       // Create one shift per day in the range
-      if (formData.startDay && formData.endDay) {
-        const currentDay = new Date(formData.startDay);
-        const endDay = new Date(formData.endDay);
+      if (start && end) {
+        const currentDay = new Date(start);
+        const endDay = new Date(end);
 
         while (currentDay <= endDay) {
           await createShiftHook({
