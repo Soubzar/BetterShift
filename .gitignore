@@ -85,3 +85,6 @@ public/workbox-*.js.map
 
 .npmrc
 *.cer
+*.crt
+
+openid-configuration
