@@ -84,6 +84,14 @@ export function ShiftSheet({
         color: shift.color,
         isAllDay: shift.isAllDay || false,
         presetId: shift.presetId || undefined,
+        startDay:
+          shift.date instanceof Date
+            ? formatDateToLocal(shift.date)
+            : "",
+        endDay:
+          shift.date instanceof Date
+            ? formatDateToLocal(shift.date)
+            : "",
       };
       initialFormDataRef.current = JSON.stringify(initialData);
     } else if (!open) {
@@ -97,6 +105,8 @@ export function ShiftSheet({
       // Create comparable version of current formData
       const currentData: ShiftFormData = {
         date: formData.date,
+        startDay: formData.startDay ?? formData.date,
+        endDay: formData.endDay ?? formData.date,
         startTime: formData.startTime,
         endTime: formData.endTime,
         title: formData.title,
